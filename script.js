@@ -17,7 +17,6 @@ const modalClose = document.getElementById("modalClose");
 const messageVideo = document.getElementById("messageVideo");
 
 let resumeSongAfterVideo = false;
-
 let pendingTimers = [];
 
 function later(fn, ms) {
@@ -26,6 +25,7 @@ function later(fn, ms) {
     return id;
 }
 
+const popCounter = document.getElementById("popCounter");
 const balloonData = [];
 let poppedCount = 0;
 let audioContext = null;
@@ -114,6 +114,7 @@ function playPopSound() {
 
     const now = audioContext.currentTime;
     const variation = 0.85 + Math.random() * 0.3;
+
     const thump = audioContext.createOscillator();
     const thumpGain = audioContext.createGain();
     thump.type = "sine";
@@ -199,6 +200,10 @@ function createParticles(balloon) {
     }
 }
 
+function updateCounter() {
+    popCounter.textContent = `${poppedCount} / ${balloons.length}`;
+}
+
 function popBalloon(balloon, index) {
     const data = balloonData[index];
     if (!data || data.popped) return;
@@ -207,6 +212,8 @@ function popBalloon(balloon, index) {
 
     playPopSound();
     poppedCount++;
+
+    updateCounter();
 
     createParticles(balloon);
     balloon.classList.add("popping");
@@ -335,6 +342,7 @@ function startAgain() {
     });
 
     poppedCount = 0;
+    updateCounter();
     setupBalloons();
 }
 
