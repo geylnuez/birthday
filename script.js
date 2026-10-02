@@ -1,20 +1,6 @@
-/* =========================================================
-   SETTINGS - change these
-   ========================================================= */
-
-/* where the song starts, in seconds (e.g. 1:02 = 62) */
 const SONG_START_TIME = 14;
-
-/* song volume: 0 (silent) to 1 (full). Lower = softer song */
 const SONG_VOLUME = 0.45;
-
-/* balloon pop loudness: 1 = normal, 1.5 = louder, 0.7 = softer */
 const POP_VOLUME = 1.4;
-
-/* =========================================================
-   ELEMENTS + STATE
-   ========================================================= */
-
 const balloons = document.querySelectorAll(".balloon");
 const balloonArea = document.getElementById("balloonArea");
 const balloonScreen = document.getElementById("balloonScreen");
@@ -30,10 +16,8 @@ const modalBackdrop = document.getElementById("modalBackdrop");
 const modalClose = document.getElementById("modalClose");
 const messageVideo = document.getElementById("messageVideo");
 
-/* true while the song is paused only because the video is playing */
 let resumeSongAfterVideo = false;
 
-/* timers we may need to cancel when starting again */
 let pendingTimers = [];
 
 function later(fn, ms) {
@@ -47,13 +31,8 @@ let poppedCount = 0;
 let audioContext = null;
 let masterGain = null;
 
-/* birthday song (put your file at audio/birthday-song.mp3) */
 const birthdaySong = new Audio("audio/birthday-song.mp3");
 birthdaySong.preload = "auto";
-
-/* =========================================================
-   BALLOONS
-   ========================================================= */
 
 function setupBalloons() {
     balloonData.length = 0;
@@ -107,20 +86,12 @@ function animateBalloons() {
 setupBalloons();
 animateBalloons();
 
-/* =========================================================
-   POP SOUND
-   Layers: deep thump + sharp crack + click + a little
-   musical "ting" that climbs a bit with every balloon.
-   ========================================================= */
-
-/* pentatonic notes so the tings always sound nice together */
 const TING_NOTES = [523.25, 587.33, 659.25, 783.99, 880.0, 1046.5];
 
 function getAudio() {
     if (!audioContext) {
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-        /* compressor keeps it punchy without distorting */
         const compressor = audioContext.createDynamicsCompressor();
         compressor.threshold.value = -14;
         compressor.knee.value = 8;
@@ -142,9 +113,7 @@ function playPopSound() {
     getAudio();
 
     const now = audioContext.currentTime;
-    const variation = 0.85 + Math.random() * 0.3; /* every pop sounds slightly different */
-
-    /* 1. deep thump */
+    const variation = 0.85 + Math.random() * 0.3;
     const thump = audioContext.createOscillator();
     const thumpGain = audioContext.createGain();
     thump.type = "sine";
@@ -157,7 +126,6 @@ function playPopSound() {
     thump.start(now);
     thump.stop(now + 0.25);
 
-    /* 2. sharp crack (noise burst) */
     const length = Math.floor(audioContext.sampleRate * 0.18);
     const buffer = audioContext.createBuffer(1, length, audioContext.sampleRate);
     const channel = buffer.getChannelData(0);
@@ -184,7 +152,6 @@ function playPopSound() {
     noise.start(now);
     noise.stop(now + 0.18);
 
-    /* 3. click */
     const click = audioContext.createOscillator();
     const clickGain = audioContext.createGain();
     click.type = "square";
@@ -197,7 +164,6 @@ function playPopSound() {
     click.start(now);
     click.stop(now + 0.05);
 
-    /* 4. little ting (higher with every balloon popped) */
     const note = TING_NOTES[poppedCount % TING_NOTES.length];
     const ting = audioContext.createOscillator();
     const tingGain = audioContext.createGain();
@@ -211,10 +177,6 @@ function playPopSound() {
     ting.start(now);
     ting.stop(now + 0.6);
 }
-
-/* =========================================================
-   POP PARTICLES
-   ========================================================= */
 
 function createParticles(balloon) {
     const rect = balloon.getBoundingClientRect();
@@ -237,10 +199,6 @@ function createParticles(balloon) {
     }
 }
 
-/* =========================================================
-   POPPING
-   ========================================================= */
-
 function popBalloon(balloon, index) {
     const data = balloonData[index];
     if (!data || data.popped) return;
@@ -262,10 +220,6 @@ balloons.forEach((balloon, index) => {
     balloon.addEventListener("pointerdown", () => popBalloon(balloon, index));
 });
 
-/* =========================================================
-   SCREENS
-   ========================================================= */
-
 function showBirthday() {
     balloonScreen.style.transition = "opacity .7s ease";
     balloonScreen.style.opacity = "0";
@@ -280,7 +234,6 @@ function showPhotos() {
     birthdayScreen.style.transition = "opacity .6s ease";
     birthdayScreen.style.opacity = "0";
 
-    /* start the song at the chosen part */
     birthdaySong.currentTime = SONG_START_TIME;
     birthdaySong.volume = SONG_VOLUME;
 
@@ -296,18 +249,11 @@ function showPhotos() {
             later(() => photo.classList.add("show"), index * 250);
         });
 
-        /* once the photos have appeared, show "scroll down" if needed */
         later(updateScrollHint, photoCards.length * 250 + 900);
     }, 600);
 }
 
 photoButton.addEventListener("click", showPhotos);
-
-/* =========================================================
-   SCROLL HINT
-   Shows "scroll down" only when there is more to see,
-   and hides as soon as the person scrolls.
-   ========================================================= */
 
 function updateScrollHint() {
     const canScroll = photoScreen.scrollHeight > photoScreen.clientHeight + 40;
@@ -318,10 +264,6 @@ function updateScrollHint() {
 }
 
 photoScreen.addEventListener("scroll", updateScrollHint, { passive: true });
-
-/* =========================================================
-   BIRTHDAY MESSAGE POP-UP
-   ========================================================= */
 
 function openMessage() {
     messageModal.classList.add("open");
@@ -335,8 +277,6 @@ function closeMessage() {
     messageModal.classList.remove("open");
     messageModal.setAttribute("aria-hidden", "true");
 }
-
-/* song steps aside while the video plays, then comes back */
 
 messageVideo.addEventListener("play", () => {
     resumeSongAfterVideo = !birthdaySong.paused;
@@ -361,16 +301,10 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeMessage();
 });
 
-/* =========================================================
-   START AGAIN
-   ========================================================= */
-
 function startAgain() {
-    /* cancel anything still waiting to happen */
     pendingTimers.forEach(clearTimeout);
     pendingTimers = [];
 
-    /* stop the song (and the video) */
     resumeSongAfterVideo = false;
     messageVideo.pause();
     messageVideo.currentTime = 0;
@@ -381,7 +315,6 @@ function startAgain() {
     closeMessage();
     scrollHint.classList.remove("visible");
 
-    /* hide the photo + birthday screens */
     photoScreen.classList.remove("show");
     photoScreen.scrollTop = 0;
 
@@ -392,7 +325,6 @@ function startAgain() {
 
     photoCards.forEach((card) => card.classList.remove("show", "touching"));
 
-    /* bring the balloon screen back */
     balloonScreen.style.transition = "none";
     balloonScreen.style.display = "";
     balloonScreen.style.opacity = "1";
@@ -410,10 +342,6 @@ restartButton.addEventListener("click", startAgain);
 
 window.addEventListener("resize", updateScrollHint);
 
-/* =========================================================
-   TAP A PHOTO (touch screens)
-   ========================================================= */
-
 photoCards.forEach((card) => {
     card.addEventListener("click", () => {
         if (!window.matchMedia("(hover: none)").matches) return;
@@ -425,10 +353,6 @@ photoCards.forEach((card) => {
         card.classList.toggle("touching");
     });
 });
-
-/* =========================================================
-   RESIZE
-   ========================================================= */
 
 window.addEventListener("resize", () => {
     const areaRect = balloonArea.getBoundingClientRect();
