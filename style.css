@@ -67,6 +67,13 @@ button {
     text-transform: uppercase;
 }
 
+.instruction .pop-counter {
+    margin-top: 8px;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #403936;
+}
+
 #balloonArea {
     position: absolute;
     top: 25%;
@@ -148,18 +155,18 @@ button {
 
 /* balloon colors (12) */
 
-.balloon:nth-child(1)  { background: #f4a6a6; color: #d98282; }
-.balloon:nth-child(2)  { background: #f5cb7a; color: #ddb35b; }
-.balloon:nth-child(3)  { background: #a8d7e7; color: #82bbcf; }
-.balloon:nth-child(4)  { background: #c6b5e6; color: #a18ec8; }
-.balloon:nth-child(5)  { background: #efaac3; color: #d48aa7; }
-.balloon:nth-child(6)  { background: #9fd1b0; color: #79b491; }
-.balloon:nth-child(7)  { background: #f1bea1; color: #dca080; }
-.balloon:nth-child(8)  { background: #b5c7eb; color: #92a9d7; }
-.balloon:nth-child(9)  { background: #f7a58b; color: #dc8369; }
-.balloon:nth-child(10) { background: #d7e38f; color: #b9c76c; }
-.balloon:nth-child(11) { background: #8fd3d0; color: #6bb5b2; }
-.balloon:nth-child(12) { background: #e3a5e0; color: #c583c2; }
+.balloon:nth-child(12n+1)  { background: #f4a6a6; color: #d98282; }
+.balloon:nth-child(12n+2)  { background: #f5cb7a; color: #ddb35b; }
+.balloon:nth-child(12n+3)  { background: #a8d7e7; color: #82bbcf; }
+.balloon:nth-child(12n+4)  { background: #c6b5e6; color: #a18ec8; }
+.balloon:nth-child(12n+5)  { background: #efaac3; color: #d48aa7; }
+.balloon:nth-child(12n+6)  { background: #9fd1b0; color: #79b491; }
+.balloon:nth-child(12n+7)  { background: #f1bea1; color: #dca080; }
+.balloon:nth-child(12n+8)  { background: #b5c7eb; color: #92a9d7; }
+.balloon:nth-child(12n+9)  { background: #f7a58b; color: #dc8369; }
+.balloon:nth-child(12n+10) { background: #d7e38f; color: #b9c76c; }
+.balloon:nth-child(12n+11) { background: #8fd3d0; color: #6bb5b2; }
+.balloon:nth-child(12n+12) { background: #e3a5e0; color: #c583c2; }
 
 /* ---------- pop particles ---------- */
 
