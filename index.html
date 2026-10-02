@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Happy Birthday!</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- balloon screen -->
+<div id="balloonScreen">
+
+    <div class="instruction">
+        <h1>Pop the balloons!</h1>
+        <p>there's something waiting for you</p>
+    </div>
+
+    <div id="balloonArea">
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+        <div class="balloon"><div class="string"></div></div>
+    </div>
+
+</div>
+
+<!-- birthday screen -->
+<div id="birthdayScreen">
+
+    <div class="birthday-content">
+
+        <div class="birthday-small">all balloons popped</div>
+
+        <h2>Happy Birthday,<br>TE TINTIN!</h2>
+
+        <p>Okay... now there's one more thing.</p>
+
+        <button class="photo-button" id="photoButton">
+            I have something for you →
+        </button>
+
+    </div>
+
+</div>
+
+<div id="photoScreen">
+
+    <div class="photo-header">
+        <small>TE TINTIN</small>
+        <h2>Look what I found.</h2>
+    </div>
+
+    <div class="photo-area">
+
+        <div class="photo-card photo1">
+            <img src="photos/photo1.jpg" alt="Birthday photo 1">
+            <p>sOBRANG SAAARRAAPPP</p>
+        </div>
+
+        <div class="photo-card photo2">
+            <img src="photos/photo2.jpg" alt="Birthday photo 2">
+            <p>no comment</p>
+        </div>
+
+        <div class="photo-card photo3">
+            <img src="photos/photo3.jpg" alt="Birthday photo 3">
+            <p>ang baby naman</p>
+        </div>
+
+        <div class="photo-card photo4">
+            <img src="photos/photo4.jpg" alt="Birthday photo 4">
+            <p>hahajhajgsjgs xD ka bes</p>
+        </div>
+
+        <div class="photo-card photo5">
+            <img src="photos/photo5.jpg" alt="Birthday photo 5">
+            <p>wowowowwoww</p>
+        </div>
+
+        <div class="photo-card photo6">
+            <img src="photos/photo6.jpg" alt="Birthday photo 6">
+            <p>MAAAAAMMAAAAAAA</p>
+        </div>
+
+    </div>
+
+    <div class="photo-footer">
+        <h3>Happy Birthday ♡</h3>
+        <p>pero nay aminin mo, mahilig ka rin...?.</p>
+
+        <div class="footer-actions">
+            <button class="photo-button" id="messageButton">
+                Open birthday message
+            </button>
+
+            <button class="photo-button secondary" id="restartButton">
+                Start again
+            </button>
+        </div>
+    </div>
+
+    <div class="scroll-hint" id="scrollHint">scroll down ↓</div>
+
+</div>
+
+<!-- birthday message pop-up -->
+<div class="modal" id="messageModal" aria-hidden="true">
+
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="messageTitle">
+
+        <button class="modal-close" id="modalClose" aria-label="Close message">×</button>
+
+        <h2 id="messageTitle">Happy Birthday, Te Tin!</h2>
+
+        <div class="modal-body">
+            <p>Happy birthday!</p>
+            <p>Sana mag spotify family plan ka na tapos add mo kami</p>
+            <p>pero bayad mo lahat ^_^</p>
+        </div>
+
+        <video class="modal-video" id="messageVideo" controls playsinline preload="metadata">
+            <source src="video/birthday-video.mp4" type="video/mp4">
+        </video>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
