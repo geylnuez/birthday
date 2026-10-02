@@ -237,16 +237,63 @@ function showBirthday() {
     }, 700);
 }
 
-function showPhotos() {
-    birthdayScreen.style.transition = "opacity .6s ease";
-    birthdayScreen.style.opacity = "0";
+let songSeeked = false;
 
-    birthdaySong.currentTime = SONG_START_TIME;
+function startSong() {
+    songSeeked = false;
     birthdaySong.volume = SONG_VOLUME;
+
+    const seekToStart = () => {
+        if (songSeeked) return;
+        songSeeked = true;
+
+        try {
+            birthdaySong.currentTime = SONG_START_TIME;
+        } catch (error) {
+            console.log("Could not seek yet:", error);
+        }
+    };
+
+    /* iPhones ignore a seek until the song's info has loaded,
+       so wait for it if needed */
+    if (birthdaySong.readyState >= 1) {
+        seekToStart();
+    } else {
+        birthdaySong.addEventListener("loadedmetadata", seekToStart, { once: true });
+    }
 
     birthdaySong.play().catch((error) => {
         console.log("Audio could not play:", error);
     });
+
+    /* safety net: if the phone still started from 0:00, jump to the start time */
+    birthdaySong.addEventListener("playing", function check() {
+        birthdaySong.removeEventListener("playing", check);
+
+        if (birthdaySong.currentTime < SONG_START_TIME - 1) {
+            birthdaySong.currentTime = SONG_START_TIME;
+        }
+    });
+}
+
+/* iPhones only start loading audio after a tap, so load it
+   on the very first touch (while she is popping balloons) */
+let songPrimed = false;
+
+function primeSong() {
+    if (songPrimed) return;
+    songPrimed = true;
+    birthdaySong.load();
+}
+
+document.addEventListener("click", primeSong, { once: true });
+document.addEventListener("touchend", primeSong, { once: true, passive: true });
+
+function showPhotos() {
+    birthdayScreen.style.transition = "opacity .6s ease";
+    birthdayScreen.style.opacity = "0";
+
+    startSong();
 
     later(() => {
         birthdayScreen.style.display = "none";
