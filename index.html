@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Birthday Lights</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1 class="sr">Happy Birthday</h1>
+<canvas id="c" aria-hidden="true"></canvas>
+<div class="vig" aria-hidden="true"></div>
+
+<div class="zone" id="zone">
+  <button id="plug" class="plug" type="button" aria-label="Plug in the lights" disabled>
+    <svg class="plugsvg" viewBox="0 0 64 78" aria-hidden="true">
+      <rect x="27" y="0" width="10" height="16" rx="3" fill="#2a211a"/>
+      <rect x="8" y="12" width="48" height="48" rx="14" fill="var(--plug)"/>
+      <rect x="18" y="60" width="6" height="18" rx="1.5" fill="var(--prong)"/>
+      <rect x="40" y="60" width="6" height="18" rx="1.5" fill="var(--prong)"/>
+    </svg>
+  </button>
+  <svg class="outlet" viewBox="0 0 110 70" aria-hidden="true">
+    <rect x="1" y="1" width="108" height="68" rx="14" fill="var(--plate)"/>
+    <rect x="41" y="14" width="6" height="20" rx="1.5" fill="var(--slot)"/>
+    <rect x="63" y="14" width="6" height="20" rx="1.5" fill="var(--slot)"/>
+    <circle cx="55" cy="52" r="5" fill="var(--slot)"/>
+  </svg>
+  <p class="cap" id="cap">Plug it in to light it up</p>
+</div>
+
+<button id="plane" class="plane" type="button" aria-label="Open the note">
+  <svg viewBox="0 0 120 80" aria-hidden="true">
+    <polygon points="116,34 10,14 44,50" fill="#f8eedc"/>
+    <polygon points="116,34 44,50 26,70" fill="#e3d1ae"/>
+    <polygon points="10,14 44,50 36,32" fill="#d2bd96"/>
+    <line x1="116" y1="34" x2="44" y2="50" stroke="#bfa87f" stroke-width="1"/>
+  </svg>
+</button>
+<p class="cap pcap" id="pcap">a note for you, tap to open</p>
+
+<div class="dim" id="dim"></div>
+<section class="note" id="note" aria-hidden="true">
+  <div class="msg" id="msg">
+    <p>happy birthday!!</p>
+    <p>ang weird pa rin for me na 2nd year college na tayo, lalo na kasi we’ve been friends since grade 7 and we’ve watched each other grow for six years kasi for six years, going to school meant i’d see you almost every day. kaya ngayon, naninibago pa rin ako when i go to school and don’t see you or hear your voice somewhere. it still feels weird having free time and just waiting for it to pass without you, without us talking about random things, or doing absolutely nothing together because there’s no teacher. i miss having someone to talk to during those random free periods.</p>
+    <p>i also really miss sharing lunch with you, sharing food, giving each other random things to try, and honestly just sharing anything and everything. life feels a little empty and weird without you around, and i guess i never realized how much of my everyday life had you in it until we ended up in different schools. but even with all that, i’m really glad that after all these years, friends pa rin tayo. we literally grew up together from grade 7 to college, and i’m so proud of you and everything you’ve done and everything you’re working towards. kahit hindi na tayo magkasama every day, i hope you know na i’m always here for you and i’ll always be rooting for you.</p>
+    <p>i hope you have the best birthday and that this year brings you lots of good things. you deserve them. happy birthday ulit!! i miss youuuu, and i hope we get to share food and do absolutely nothing together again soon. love youuu! 🤍</p>
+  </div>
+  <button class="close" id="close" type="button">close</button>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
